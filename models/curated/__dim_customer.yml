@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "The curated version of the Customer bridging with nation and region hierarchies."
+    docs:
+      show: true
+      node_color: purple # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    constraints:
+      - type: primary_key
+        columns: [customer_key]
+
+    # tests:
+    #   - <test>
+    #   - ... # declare additional data tests
+    columns:
+      - name: customer_key # required
+        description: "The business key providing uniqueness to Customer records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        tests:
+          - unique:
+              tags: [curated_uniqueness,uniqueness]
+              severity: warn
+    #     tags: [<string>]
+      - name: full_address # required
+        description: "The full address (USPS) to the geographic location of a Customer."
+        tags: 
+          - sensitive_address
+      - name: customer_name # required
+        description: "The name of a Customer."
+        tags: 
+          - sensitive_name
+      - name: phone_number # required
+        description: "The phone number of a Customer for telephone communications."
+        tags: 
+          - sensitive_phone

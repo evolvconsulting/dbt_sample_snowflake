@@ -1,0 +1,27 @@
+﻿Class_Code,Class_Code_Description,JHCLID,JHCARC,Class_Code_Relationship_Type
+A,ALIEN,,PER,Personal
+B,BUSINESS,,BUS,Business
+C,CORPORATION,,BUS,Business
+D,PERSONAL TRUST,,PER,Personal
+E,ESTATE,,BUS,Business
+F,FINAN INST,,BUS,Business
+G,GOV AGENCY,,BUS,Business
+H,AGENT,,BUS,Business
+I,INDIVIDUAL,,PER,Personal
+J,,,,
+K,PART/LTD,,BUS,Business
+L,LLC/LLP,,BUS,Business
+M,UGTMA,,PER,Personal
+N,NON PROFIT,,BUS,Business
+O,OTHER,,BUS,Business
+P,PERSONAL,,PER,Personal
+Q,PROF ASSOC,,BUS,Business
+R,ESTATE,,PER,Personal
+S,SOLE PROP,,BUS,Business
+T,TRUST,,BUS,Business
+U,CUSTODIAN,,PER,Personal
+V,BANKRUPTCY TRST,,PER,Personal
+W,BANKRUPTCY TRST,,BUS,Business
+X,IOLTA,,BUS,Business
+Y,OFFICIAL CHECKS,,BUS,Business
+Z,Public Funds,,BUS,Business

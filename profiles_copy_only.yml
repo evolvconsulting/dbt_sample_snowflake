@@ -1,0 +1,57 @@
+dbt_sample_snowflake:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('DBT_SNOWFLAKE_DEV_ACCOUNT') }}"
+
+      # User/password auth
+      user: "{{ env_var('DBT_SNOWFLAKE_DEV_USER') }}"
+      authenticator: externalbrowser
+
+      # Keypair config
+      #private_key_path: [path/to/private.key]
+      # or private_key instead of private_key_path
+      #private_key_passphrase: [passphrase for the private key, if key is encrypted]
+
+      role: "{{ env_var('DBT_SNOWFLAKE_DEV_ROLE') }}"
+      database: "{{ env_var('DBT_SNOWFLAKE_DEV_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_SNOWFLAKE_DEV_WAREHOUSE') }}"
+      schema: "{{ env_var('DBT_SNOWFLAKE_DEV_SCHEMA') }}"
+      threads: 8
+      client_session_keep_alive: False
+
+      # optional
+      connect_retries: 0 # default 0
+      connect_timeout: 10 # default: 10
+      retry_on_database_errors: False # default: false
+      retry_all: False  # default: false
+      reuse_connections: False # default: false (available v1.4+)
+  target: uat
+  outputs:
+    uat:
+      type: snowflake
+      account: "{{ env_var('DBT_SNOWFLAKE_UAT_ACCOUNT') }}"
+
+      # User/password auth
+      user: "{{ env_var('DBT_SNOWFLAKE_UAT_USER') }}"
+      authenticator: externalbrowser
+
+      # Keypair config
+      #private_key_path: [path/to/private.key]
+      # or private_key instead of private_key_path
+      #private_key_passphrase: [passphrase for the private key, if key is encrypted]
+
+      role: "{{ env_var('DBT_SNOWFLAKE_UAT_ROLE') }}"
+      database: "{{ env_var('DBT_SNOWFLAKE_UAT_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_SNOWFLAKE_UAT_WAREHOUSE') }}"
+      schema: "{{ env_var('DBT_SNOWFLAKE_UAT_SCHEMA') }}"
+      threads: 8
+      client_session_keep_alive: False
+
+      # optional
+      connect_retries: 0 # default 0
+      connect_timeout: 10 # default: 10
+      retry_on_database_errors: False # default: false
+      retry_all: False  # default: false
+      reuse_connections: False # default: false (available v1.4+)

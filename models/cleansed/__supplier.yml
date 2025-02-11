@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: supplier
+    description: "The cleansed version of the Supplier records as submitted from their source."
+    # docs:
+    #   show: true | false
+    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    constraints:
+      - type: primary_key
+        columns: [supplier_key]
+      - type: foreign_key # multi_column
+        columns: [nation_key]
+        to: ref('nation')
+        to_columns: [nation_key]
+    # tests:
+    #   - <test>
+    #   - ... # declare additional data tests
+    columns:
+      - name: supplier_key # required
+        description: "The business key providing uniqueness to Supplier records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        tests:
+          - unique:
+              tags: [cleansed_uniqueness,uniqueness]
+              severity: warn
+    #       - <test>
+    #       - ... # declare additional data tests
+    #     tags: [<string>]
+      - name: full_address # required
+        description: "The full address (USPS) to the geographic location of a Supplier."
+        tags: 
+          - nonsensitive_address
+      - name: supplier_name # required
+        description: "The name of a Supplier."
+        tags: 
+          - nonsensitive_name
+      - name: phone_number # required
+        description: "The phone number of a Supplier for telephone communications."
+        tags: 
+          - nonsensitive_phone
+      - name: account_balance # required
+        description: "The current account_balance of a Supplier."
+        tags: 
+          - nonsensitive_account_balance

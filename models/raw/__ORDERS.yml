@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: ORDERS
+    description: "The raw version of the Order records as copied from their source."
+    # docs:
+    #   show: true | false
+    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    # constraints:
+    # tests:
+    #   - <test>
+    #   - ... # declare additional data tests
+    columns:
+      - name: O_ORDERKEY # required
+        description: "The business key providing uniqueness to Order records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        tests:
+          - unique:
+              tags: [raw_uniqueness,uniqueness]
+              severity: warn
+    #       - <test>
+    #       - ... # declare additional data tests
+    #     tags: [<string>]

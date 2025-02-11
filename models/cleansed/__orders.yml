@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: orders
+    description: "The cleansed version of the Orders records as submitted from their source."
+    # docs:
+    #   show: true | false
+    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    constraints:
+      - type: primary_key
+        columns: [order_key]
+      - type: foreign_key # multi_column
+        columns: [customer_key]
+        to: ref('customer')
+        to_columns: [customer_key]
+    # tests:
+    #   - <test>
+    #   - ... # declare additional data tests
+    columns:
+      - name: order_key # required
+        description: "The business key providing uniqueness to Order records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        tests:
+          - unique:
+              tags: [cleansed_uniqueness,uniqueness]
+              severity: warn
+    #       - <test>
+    #       - ... # declare additional data tests
+    #     tags: [<string>]

@@ -1,0 +1,59 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: "dbt_sample_snowflake"
+version: 1.0.0
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: "dbt_sample_snowflake"
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+asset-paths: ["assets"]
+clean-targets: ["target", "dbt_modules", "dbt_packages"] # directories to be cleared by `dbt clean`
+
+models:
+  dbt_sample_snowflake:
+    post-hook:
+      - > # run the following to apply tags to table-columns as defined
+        {% if flags.WHICH in ('run', 'build') %}
+          {{ dbt_tags.apply_column_tags() }}
+        {% endif %}
+    raw:
+      +schema: raw
+    cleansed:
+      +schema: cleansed
+    curated:
+      +schema: curated
+  +copy_grants: true # dbt will add the copy grants DDL qualifier when rebuilding tables and views
+
+vars:
+  # The dbt tag variables configure the central tag/masking policy database and schema   
+  # Tags are created from this project by executing: dbt run-operation create_tags 
+  # Masking Policies (setup as custom macros) are created from this project by executing: dbt run-operation create_masking_policies  
+  # Masking policies are associated to Tags from this project by executing: dbt run-operation apply_mps_to_tags  
+  dbt_tags__database: dbt_governance 
+  dbt_tags__schema: policies
+  # The acceptable tags are listed below
+  dbt_tags__allowed_tags:
+    - sensitive_address
+    - sensitive_name
+    - sensitive_phone
+    - nonsensitive_address
+    - nonsensitive_name
+    - nonsensitive_phone
+    - sensitive_account_balance
+    - nonsensitive_account_balance
+  # The `incremental_count` variable will be accessible in all resources
+  incremental_count: '100000'
+
+

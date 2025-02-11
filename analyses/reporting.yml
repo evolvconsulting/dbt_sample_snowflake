@@ -1,0 +1,47 @@
+version: 2
+
+exposures:
+  - name: Customer_Dashboard
+    description: "A collection of customer specific information stitched together for 360 degree perspective of customer activities and management."
+    type: dashboard
+    # url: <string>
+    maturity: high  # Indicates level of confidence or stability in the exposure
+    tags: [customer]
+    # meta: {<dictionary>}
+    owner:
+      name: "Chris Schneider"
+      email: "chris.schneider@evolvconsulting.com"
+    
+    depends_on:
+      - ref('dim_customer')
+      - ref('Class_Codes')
+      # - source('name', 'table')
+      # - metric('metric_name')
+      
+    label: "Customer 360"
+    config:
+      enabled: true
+  
+  - name: Order_Dashboard
+    description: "A collection of order specific information stitched together to enable order and supply chain management."
+    type: dashboard
+    # url: <string>
+    maturity: high  # Indicates level of confidence or stability in the exposure
+    tags: [orders]
+    # meta: {<dictionary>}
+    owner:
+      name: "Chris Schneider"
+      email: "chris.schneider@evolvconsulting.com"
+    
+    depends_on:
+      - ref('fact_order_line_item')
+      - ref('dim_part')
+      - ref('dim_supplier')
+      - ref('dim_customer')
+      - ref('Class_Codes')
+      # - source('name', 'table')
+      # - metric('metric_name')
+      
+    label: "Order Management"
+    config:
+      enabled: true

@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: PARTSUPP
+    description: "The raw version of the Part Supplier records as copied from their source."
+    # docs:
+    #   show: true | false
+    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    # constraints:
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          tags: [raw_uniqueness,uniqueness]
+          severity: warn
+          combination_of_columns:
+            - PS_PARTKEY
+            - PS_SUPPKEY 
+    columns:
+      - name: PS_PARTKEY # required
+        description: "The business key providing uniqueness to Part records."
+      - name: PS_SUPPKEY # required
+        description: "The business key providing uniqueness to Supplier records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        # tests:
+    #       - <test>
+    #       - ... # declare additional data tests
+    #     tags: [<string>]

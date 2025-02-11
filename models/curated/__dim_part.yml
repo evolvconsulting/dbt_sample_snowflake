@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_part
+    description: "The curated version of the Part."
+    docs:
+      show: true
+      node_color: purple # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    constraints:
+      - type: primary_key
+        columns: [part_key]
+
+    # tests:
+    #   - <test>
+    #   - ... # declare additional data tests
+    columns:
+      - name: part_key # required
+        description: "The business key providing uniqueness to Part records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        tests:
+          - unique:
+              tags: [curated_uniqueness,uniqueness]
+              severity: warn
+    #     tags: [<string>]

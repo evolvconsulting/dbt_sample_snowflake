@@ -1,0 +1,65 @@
+version: 2
+
+sources:
+  - name: SNOWFLAKE_SAMPLE_DATA
+    database: SNOWFLAKE_SAMPLE_DATA  
+    schema: TPCH_SF1  
+    tables:
+      - name: CUSTOMER
+        columns:
+          - name: C_CUSTKEY # required
+            tests:
+              - unique:
+                  tags: [source_uniqueness,uniqueness]
+                  severity: warn
+      - name: LINEITEM
+        tests:
+        - dbt_utils.unique_combination_of_columns:
+            tags: [source_uniqueness,uniqueness]
+            severity: warn
+            combination_of_columns:
+              - L_ORDERKEY
+              - L_LINENUMBER 
+      - name: NATION
+        columns:
+          - name: N_NATIONKEY # required
+            tests:
+              - unique:
+                  tags: [source_uniqueness,uniqueness]
+                  severity: warn
+      - name: ORDERS
+        columns:
+          - name: O_ORDERKEY # required
+            tests:
+              - unique:
+                  tags: [source_uniqueness,uniqueness]
+                  severity: warn
+      - name: PART
+        columns:
+          - name: P_PARTKEY # required
+            tests:
+              - unique:
+                  tags: [source_uniqueness,uniqueness]
+                  severity: warn
+      - name: PARTSUPP
+        tests:
+        - dbt_utils.unique_combination_of_columns:
+            tags: [source_uniqueness,uniqueness]
+            severity: warn
+            combination_of_columns:
+              - PS_PARTKEY
+              - PS_SUPPKEY 
+      - name: REGION
+        columns:
+          - name: R_REGIONKEY # required
+            tests:
+              - unique:
+                  tags: [source_uniqueness,uniqueness]
+                  severity: warn
+      - name: SUPPLIER
+        columns:
+          - name: S_SUPPKEY # required
+            tests:
+              - unique:
+                  tags: [source_uniqueness,uniqueness]
+                  severity: warn

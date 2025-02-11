@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: LINEITEM
+    description: "The raw version of the Order Line Items records as copied from their source."
+    # docs:
+    #   show: true | false
+    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    # constraints:
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          tags: [raw_uniqueness,uniqueness]
+          severity: warn
+          combination_of_columns:
+            - L_ORDERKEY
+            - L_LINENUMBER 
+    columns:
+      - name: L_ORDERKEY # required
+        description: "The business key providing uniqueness to Order records."
+      - name: L_LINENUMBER # required
+        description: "The line number of the order providing uniqueness to the order line detail records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+        # tests:
+    #       - <test>
+    #       - ... # declare additional data tests
+    #     tags: [<string>]

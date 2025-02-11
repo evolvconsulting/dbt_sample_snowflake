@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: order_line_item
+    description: "The cleansed version of the Order Line Items records as submitted from their source."
+    # docs:
+    #   show: true | false
+    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    # latest_version: <version_identifier>
+    # deprecation_date: <YAML_DateTime>
+    # access: private | protected | public
+    # config:
+    #   <model_config>: <config_value>
+    constraints:
+      - type: primary_key
+        columns: [order_key,line_number]
+      - type: foreign_key # multi_column
+        columns: [part_key]
+        to: ref('part')
+        to_columns: [part_key]
+      - type: foreign_key # multi_column
+        columns: [supplier_key]
+        to: ref('supplier')
+        to_columns: [supplier_key]
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          tags: [cleansed_uniqueness,uniqueness]
+          severity: warn
+          combination_of_columns:
+            - order_key
+            - line_number 
+    columns:
+      - name: order_key # required
+        description: "The business key providing uniqueness to Order records."
+      - name: line_number # required
+        description: "The line number of the order providing uniqueness to the order line detail records."
+    #     meta: {<dictionary>}
+    #     quote: true | false
+    #     constraints:
+    #       - <constraint>
+    #     tests:
+    #       - <test>
+    #       - ... # declare additional data tests
+    #     tags: [<string>]

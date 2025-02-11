@@ -1,0 +1,16 @@
+version: 2
+
+seeds:
+  - name: "Class_Codes"
+    config:
+      enabled: true
+      schema: raw
+      tags: "reference_data"
+      quote_columns: false
+      column_types:
+        Class_Code: varchar(1)
+        Class_Code_Description: varchar(100)
+        JHCLID: varchar(5)
+        JHCARC: varchar(5)
+        Class_Code_Relationship_Type: varchar(25)
+      delimiter: ","

@@ -1,0 +1,5 @@
+dbt-core
+dbt-extractor
+dbt-snowflake
+snowflake-connector-python
+tomlkit
