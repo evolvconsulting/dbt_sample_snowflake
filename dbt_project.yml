@@ -36,6 +36,10 @@ models:
       +schema: curated
   +copy_grants: true # dbt will add the copy grants DDL qualifier when rebuilding tables and views
 
+
+# run the following after each run, build, or test to post the log files to internal stage
+on-run-end: "{% if flags.WHICH in ('run', 'build', 'test') %} {{store_logs(filepath='./logs/dbt.log', stage='log_stage/logs', schema='raw')}} {% endif %}"
+
 vars:
   # The dbt tag variables configure the central tag/masking policy database and schema   
   # Tags are created from this project by executing: dbt run-operation create_tags 
