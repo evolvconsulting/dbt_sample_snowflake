@@ -47,10 +47,11 @@ $ dbt run
 ```
 - This project is configured with many tags to simplifying multiple pipelines
   - By Layer/Type:
-    - `source_load` - the models in the raw schema.
-    - `data_cleansing` - the models in the cleansed schema.
+    - `source_load` - The models in the raw schema.
+    - `data_cleansing` - The models in the cleansed schema.
     - `dimensions` - The dim_customer, dim_part, and dim_supplier models in the curated schema.  Prefix with a plus (+) in dbt run tag selection to run all dependecies.
     - `facts` - The fact_order_line_item model in the curated schema.  Prefix with a plus (+) in dbt run tag selection to run all dependecies.
+    - `stages` - The Snowflake internal stages using the custom materialization.
   - By Domain:
     - `customer` - The dim_customer model in the curated schema.  Prefix with a plus (+) in dbt run tag selection to run all dependecies. 
     - `supply_chain` - The dim_part and dim_supplier models in the curated schema.  Prefix with a plus (+) in dbt run tag selection to run all dependecies.
