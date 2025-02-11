@@ -4,7 +4,8 @@
 {%- set relation_query -%}
     select count(1) as count
     from dbt_sample_dev.information_schema.stages
-    where stage_schema = '{{relation['schema'].upper()}}'
+    where stage_catalog = '{{relation['database'].upper()}}'
+    and stage_schema = '{{relation['schema'].upper()}}'
     and stage_name = '{{relation['name'].upper()}}'
     ;
 {%- endset %}
