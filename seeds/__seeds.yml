@@ -2,6 +2,10 @@ version: 2
 
 seeds:
   - name: "Class_Codes"
+    description: "The custom classification codes as outlined by the data team."
+    docs:
+      show: true
+      node_color: "#F6C6AD" # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
     config:
       enabled: true
       schema: raw

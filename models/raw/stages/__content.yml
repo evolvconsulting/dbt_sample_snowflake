@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: content
+    description: "An internal stage that enable file integration to/from Snowflake."
+    docs:
+      show: true
+      node_color: "#FFC000" # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    

@@ -111,7 +111,15 @@ For more information on dbt-tags:
 
 14. Post the dbt logs file to your internal stage to ingest into Snowflake for analysis:
 ```bash
-$ dbt run-operation store_logs --args '{filepath: ./logs/dbt.log, stage: log_stage/logs, schema: raw}'
+$ dbt run-operation post_run_end_dbt_logs
+```
+    or by running:
+```bash
+$ dbt run-operation store_files --args '{filepath: ./logs/dbt.log, stage: log_stage/logs, schema: raw}'
+```
+15. Post the dbt docs files to your internal stage to enable hosting on other webserver:
+```bash
+$ dbt run-operation post_run_dbt_docs_content
 ```
 
 ---

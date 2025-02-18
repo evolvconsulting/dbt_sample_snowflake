@@ -9,6 +9,8 @@ config-version: 2
 # This setting configures which "profile" dbt uses for this project.
 profile: "dbt_sample_snowflake"
 
+#on-run-end: "{{post_run_end_dbt_logs()}}" # run the following after each run, build, or test to post the log files to internal stage
+
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
@@ -19,15 +21,11 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 asset-paths: ["assets"]
-clean-targets: ["target", "dbt_modules", "dbt_packages"] # directories to be cleared by `dbt clean`
+clean-targets: ["target", "logs", "dbt_modules", "dbt_packages"] # directories to be cleared by `dbt clean`
 
 models:
   dbt_sample_snowflake:
-    post-hook:
-      - > # run the following to apply tags to table-columns as defined
-        {% if flags.WHICH in ('run', 'build') %}
-          {{ dbt_tags.apply_column_tags() }}
-        {% endif %}
+    post-hook: "{{post_hook_apply_tags()}}"  # run the following to apply tags to table-columns as defined
     raw:
       +schema: raw
     cleansed:
@@ -35,10 +33,6 @@ models:
     curated:
       +schema: curated
   +copy_grants: true # dbt will add the copy grants DDL qualifier when rebuilding tables and views
-
-
-# run the following after each run, build, or test to post the log files to internal stage
-on-run-end: "{% if flags.WHICH in ('run', 'build', 'test') %} {{store_logs(filepath='./logs/dbt.log', stage='log_stage/logs', schema='raw')}} {% endif %}"
 
 vars:
   # The dbt tag variables configure the central tag/masking policy database and schema   

@@ -3,9 +3,9 @@ version: 2
 models:
   - name: customer
     description: "The cleansed version of the Customer records as submitted from their source."
-    # docs:
-    #   show: true | false
-    #   node_color: <color_id> # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
+    docs:
+      show: true
+      node_color: "#3366CC" # Use name (such as node_color: purple) or hex code with quotes (such as node_color: "#cd7f32")
     # latest_version: <version_identifier>
     # deprecation_date: <YAML_DateTime>
     # access: private | protected | public
@@ -51,3 +51,15 @@ models:
         description: "The current account_balance of a Customer."
         # tags: 
         #   - sensitive_account_balance
+      - name: customer_comment # required
+        description: "The sales reps comments for representing this customer."
+      - name: market_segment # required
+        description: "The current industry market segment for this customer."
+      - name: nation_key # required
+        description: "The business key providing uniqueness to Nation records."
+      - name: row_hash # required
+        description: "A unique key built with the hash() function and all fields from the record to enable CDC."
+      - name: created_by_user_name # required
+        description: "The user that created the record."
+      - name: created_by_timestamp # required
+        description: "The date and time in UTC that the record was created."
