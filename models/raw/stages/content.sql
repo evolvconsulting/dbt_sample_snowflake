@@ -2,7 +2,7 @@
 {{
   config(
     materialized='internal_stage',
-    tags=['stages'],
+    tags=['stages','initial'],
   )
 }}
 --options

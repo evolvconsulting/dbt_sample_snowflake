@@ -1,7 +1,7 @@
 {{
   config(
     materialized='file_format',
-    tags=['formats'],
+    tags=['formats','initial'],
   )
 }}
 --options
