@@ -29,6 +29,12 @@ x.record_key
 ,x.file_row_content
 ,x.file_row_number
 ,x.file_last_modified
+,regexp_like(file_row_content,'^={30}.*') as Is_Run_Header
+,case when Is_Run_Header then split_part(split_part(file_row_content,'|',2),' ',2) else '' end as Run_Id
+,lead(run_id,1,run_id) over(order by file_row_number) Real_Run_Id
+,regexp_like(file_row_content,'^\\\\[.*') as Is_New_Log_Row
+,case when Is_New_Log_Row then split_part(file_row_content,'[MainThread]: ',2) else '' end as Run_Info
+,case when not Is_Run_Header and not Is_New_Log_Row then file_row_content else '' end as Run_Info_Continued
 ,x.row_hash
 
 {% if is_incremental() %}

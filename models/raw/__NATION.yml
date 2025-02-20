@@ -18,6 +18,8 @@ models:
     columns:
       - name: N_NATIONKEY # required
         description: "The business key providing uniqueness to Nation records."
+      - name: N_REGIONKEY # required
+        description: "The business key providing uniqueness to Region records."
     #     meta: {<dictionary>}
     #     quote: true | false
     #     constraints:
