@@ -9,7 +9,8 @@ config-version: 2
 # This setting configures which "profile" dbt uses for this project.
 profile: "dbt_sample_snowflake"
 
-#on-run-end: "{{post_run_end_dbt_logs()}}" # run the following after each run, build, or test to post the log files to internal stage
+on-run-end: 
+  - "{{dbt_artifacts.upload_results(results)}}" # run the following after each run, build, or test to post the log files to internal stage
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -24,6 +25,7 @@ asset-paths: ["assets"]
 clean-targets: ["target", "logs", "dbt_modules", "dbt_packages"] # directories to be cleared by `dbt clean`
 
 models:
+  +copy_grants: true # dbt will add the copy grants DDL qualifier when rebuilding tables and views
   dbt_sample_snowflake:
     post-hook: "{{post_hook_apply_tags()}}"  # run the following to apply tags to table-columns as defined
     raw:
@@ -32,7 +34,9 @@ models:
       +schema: cleansed
     curated:
       +schema: curated
-  +copy_grants: true # dbt will add the copy grants DDL qualifier when rebuilding tables and views
+  dbt_artifacts:
+    +schema: operations
+
 
 vars:
   # The dbt tag variables configure the central tag/masking policy database and schema   
